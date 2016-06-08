@@ -25,5 +25,5 @@ Object.keys(projectFiles).forEach((projectFile) => {
 test('missing.txt', (t) => {
   return mimeType(path.join(__dirname, '..', 'missing.txt'))
     .then(() => t.fail('should not resolve'))
-    .catch((err) => t.ok(err));
+    .catch((err) => t.truthy(err));
 });

@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.0.0 - 2016-06-08
+
+### Changed
+
+- CC-16: AWS SDK for Javascript v2.3.9 or above is required
+
+### Added
+
+- CC-16: "prune" option now removes files from the s3 bucket that are not on the local file system
+- CC-16 "deleting" and "deleted" events
+- CC-16: listObjects now supports s3 buckets with > 1000 objects
 
 ## 1.2.0 - 2016-04-04
 

@@ -16,7 +16,9 @@ npm install @blinkmobile/aws-s3 aws-sdk
 const upload = require('@blinkmobile/aws-s3').upload;
 const AWS = require('aws-sdk');
 ```
+## Requirements
 
+AWS SDK for Javascript, version >= v2.3.9
 
 ## Usage
 
@@ -78,6 +80,10 @@ interface UploadOptions {
 
 - **error**: `error`, `fileName`
 
+- **deleting**: `fileName`
+
+- **deleted**: `fileName`
+
 ```js
 const task = upload({ /* ... */ });
 task.on('error', (error, fileName) => {
@@ -89,6 +95,4 @@ task.on('error', (error, fileName) => {
 ## Roadmap
 
 - [ ] "dryRun" option
-- [ ] "prune" option
 - [ ] "fs" option
-- [ ] support S3 Buckets with more than 1000 Objects

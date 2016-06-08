@@ -29,9 +29,9 @@ test('fromFiles', (t) => {
   return maps.fromFiles(null, cwd, filePaths)
     .then((map) => filePaths.forEach((key) => {
       const entry = map.get(key);
-      t.ok(entry.LastModified instanceof Date);
+      t.truthy(entry.LastModified instanceof Date);
       delete entry.LastModified; // value is too unpredictable for this test
-      t.same(map.get(key), expected[key]);
+      t.deepEqual(map.get(key), expected[key]);
     }));
 });
 
@@ -42,7 +42,7 @@ test('fsFileToMap with missing local file', (t) => {
   ];
   return maps.fromFiles(null, cwd, filePaths)
     .then(() => t.fail('resolved'))
-    .catch((err) => t.ok(err));
+    .catch((err) => t.truthy(err));
 });
 
 test('s3ContentsToMap', (t) => {
@@ -56,7 +56,7 @@ test('s3ContentsToMap', (t) => {
   ];
   return maps.fromS3Contents(contents)
     .then((map) => {
-      t.same(contents[0], map.get(contents[0].Key));
+      t.deepEqual(contents[0], map.get(contents[0].Key));
     });
 });
 
@@ -80,9 +80,9 @@ test('compareMaps skip=true', (t) => {
       });
 
       const results = maps.compare(files, objects, { skip: true });
-      t.same(results.deletes, ['sub/extra.txt']);
-      t.same(results.noops, ['abc.txt']);
-      t.same(results.uploads, ['sub/sub/index.html']);
+      t.deepEqual(results.deletes, ['sub/extra.txt']);
+      t.deepEqual(results.noops, ['abc.txt']);
+      t.deepEqual(results.uploads, ['sub/sub/index.html']);
     });
 });
 
@@ -106,9 +106,9 @@ test('compareMaps skip=false', (t) => {
       });
 
       const results = maps.compare(files, objects, { skip: false });
-      t.same(results.deletes, ['sub/extra.txt']);
-      t.same(results.noops, []);
+      t.deepEqual(results.deletes, ['sub/extra.txt']);
+      t.deepEqual(results.noops, []);
       results.uploads.sort(); // need to make tests deterministic
-      t.same(results.uploads, ['abc.txt', 'sub/sub/index.html']);
+      t.deepEqual(results.uploads, ['abc.txt', 'sub/sub/index.html']);
     });
 });

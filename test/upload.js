@@ -8,7 +8,7 @@ const test = require('ava');
 const upload = require('..').upload;
 
 const mockS3 = {
-  listObjects (options, callback) { callback(null, { Contents: [] }); },
+  listObjectsV2 (options, callback) { callback(null, { Contents: [] }); },
   upload (options, callback) {
     if (!options.ContentType) {
       callback(new TypeError('missing ContentType'));
@@ -26,14 +26,18 @@ test('upload() incomplete s3 throws', (t) => {
   t.throws(() => upload({ s3: {} }), TypeError);
 });
 
+test('upload() old s3 version throws', (t) => {
+  t.throws(() => upload({ s3: {listObjects: () => true} }), TypeError);
+});
+
 test('upload() => EventEmitter', (t) => {
   const task = upload({ s3: mockS3 });
-  t.ok(task instanceof EventEmitter);
+  t.truthy(task instanceof EventEmitter);
 });
 
 test('upload().promise: Promise', (t) => {
   const task = upload({ s3: mockS3 });
-  t.ok(task.promise instanceof global.Promise);
+  t.truthy(task.promise instanceof global.Promise);
   return task.promise;
 });
 
@@ -46,7 +50,7 @@ test('task = upload({ filePaths: [...] }); task.filePaths as provided', (t) => {
   const task = upload({ cwd, filePaths, s3: mockS3 });
   return task.promise
     .then(() => {
-      t.same(task.filePaths, filePaths);
+      t.deepEqual(task.filePaths, filePaths);
     });
 });
 
@@ -59,7 +63,7 @@ test('task = upload({ filePaths: null }); task.filePaths glob\'ed', (t) => {
   const task = upload({ cwd, s3: mockS3 });
   return task.promise
     .then(() => {
-      t.same(task.filePaths, filePaths);
+      t.deepEqual(task.filePaths, filePaths);
     });
 });
 
@@ -78,9 +82,60 @@ test('task = upload({ filePaths: null }); events', (t) => {
   });
   return task.promise
     .then(() => {
-      t.same(events, {
+      t.deepEqual(events, {
         'abc.txt': { uploading: true, uploaded: true },
         'sub/sub/index.html': { uploading: true, uploaded: true }
       });
     });
+});
+
+test('task uploads and deletes', (t) => {
+  const mockS3 = {
+    listObjectsV2 (options, callback) {
+      callback(null, { Contents: [
+        {Key: 'abcd.txt'},
+        {Key: 'efgh.txt'},
+        {Key: 'ijkl.txt'}
+      ]});
+    },
+    upload (options, callback) {
+      if (!options.ContentType) {
+        callback(new TypeError('missing ContentType'));
+        return;
+      }
+      callback(null);
+    },
+    deleteObjects (params, cb) {
+      cb(null, {
+        Deleted: [
+          {Key: 'abcd.txt'},
+          {Key: 'efgh.txt'},
+          {Key: 'ijkl.txt'}
+        ],
+        Errors: []
+      });
+    }
+  };
+
+  const events = {
+    'abcd.txt': {deleting: false, deleted: false},
+    'efgh.txt': {deleting: false, deleted: false},
+    'ijkl.txt': {deleting: false, deleted: false}
+  };
+  const cwd = path.join(__dirname, 'fixtures');
+  const task = upload({cwd, s3: mockS3, prune: true});
+  task.on('deleting', (filename) => {
+    events[filename].deleting = true;
+  });
+  task.on('deleted', (filename) => {
+    events[filename].deleted = true;
+  });
+
+  return task.promise.then(() => {
+    t.deepEqual(events, {
+      'abcd.txt': {deleting: true, deleted: true},
+      'efgh.txt': {deleting: true, deleted: true},
+      'ijkl.txt': {deleting: true, deleted: true}
+    });
+  });
 });
