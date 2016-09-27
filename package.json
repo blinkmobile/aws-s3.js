@@ -12,18 +12,18 @@
     "lodash.chunk": "^4.0.6",
     "mime-types": "^2.1.10",
     "pify": "^2.3.0",
-    "read-chunk": "^1.0.1",
+    "read-chunk": "^2.0.0",
     "worker-farm": "^1.3.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
-    "eslint": "^2.11.1",
-    "eslint-config-standard": "^5.3.1",
-    "eslint-plugin-promise": "^1.3.2",
-    "eslint-plugin-standard": "^1.3.2",
+    "ava": "^0.16.0",
+    "eslint": "^3.6.1",
+    "eslint-config-standard": "^6.1.0",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0",
     "fixpack": "^2.3.1",
-    "npm-run-all": "^2.1.1",
-    "nyc": "^6.4.4"
+    "npm-run-all": "^3.1.0",
+    "nyc": "^8.3.0"
   },
   "engines": {
     "node": ">=4.0.0",
