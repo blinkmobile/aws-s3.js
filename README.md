@@ -1,5 +1,7 @@
 # blinkmobile/aws-s3
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/aws-s3.js.svg)](https://greenkeeper.io/)
+
 our simplified wrapper for common AWS S3 operations
 
 [![npm module](https://img.shields.io/npm/v/@blinkmobile/aws-s3.svg)](https://www.npmjs.com/package/@blinkmobile/aws-s3)
