@@ -18,12 +18,14 @@
   },
   "devDependencies": {
     "ava": "^0.18.0",
-    "eslint": "^3.6.1",
+    "eslint": "^3.19.0",
     "eslint-config-semistandard": "^8.0.0",
     "eslint-config-standard": "^10.0.0",
-    "eslint-plugin-promise": "^3.0.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.2.0",
     "fixpack": "^2.3.1",
+    "flow-bin": "^0.43.0",
     "npm-run-all": "^4.0.0",
     "nyc": "^10.0.0"
   },
@@ -45,10 +47,19 @@
   },
   "scripts": {
     "ava": "nyc ava",
-    "eslint": "eslint --fix .",
+    "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
-    "nyc": "nyc check-coverage -s 90 -b 80 -f 90 -l 90",
+    "nyc": "nyc check-coverage",
     "posttest": "npm-run-all eslint fixpack",
-    "test": "npm-run-all -s ava nyc"
+    "test": "npm-run-all -s ava nyc",
+    "flow_check": "flow check",
+    "pretest": "npm run fixpack"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "author": "Ron Waldon <jokeyrhyme@gmail.com> (https://github.com/jokeyrhyme)",
+  "publishConfig": {
+    "access": "public"
   }
 }
