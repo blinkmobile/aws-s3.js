@@ -2,6 +2,7 @@
   "name": "@blinkmobile/aws-s3",
   "description": "our simplified wrapper for common AWS S3 operations",
   "version": "2.1.0",
+  "author": "Ron Waldon <jokeyrhyme@gmail.com> (https://github.com/jokeyrhyme)",
   "bugs": {
     "url": "https://github.com/blinkmobile/aws-s3.js/issues"
   },
@@ -29,6 +30,9 @@
     "npm-run-all": "^4.0.0",
     "nyc": "^10.0.0"
   },
+  "directories": {
+    "test": "test"
+  },
   "engines": {
     "node": ">=4.0.0",
     "npm": ">=3.0.0"
@@ -41,6 +45,9 @@
   "keywords": [],
   "license": "BSD-3-Clause",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blinkmobile/aws-s3.js.git"
@@ -49,17 +56,10 @@
     "ava": "nyc ava",
     "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
-    "nyc": "nyc check-coverage",
-    "posttest": "npm-run-all eslint fixpack",
-    "test": "npm-run-all -s ava nyc",
     "flow_check": "flow check",
-    "pretest": "npm run fixpack"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "author": "Ron Waldon <jokeyrhyme@gmail.com> (https://github.com/jokeyrhyme)",
-  "publishConfig": {
-    "access": "public"
+    "nyc": "nyc check-coverage",
+    "posttest": "npm-run-all eslint",
+    "pretest": "npm run fixpack",
+    "test": "npm-run-all -s ava nyc"
   }
 }
