@@ -1,6 +1,13 @@
 {
-  "extends": ["eslint:recommended", "semistandard"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "semistandard"
+  ],
   "env": {
     "es6": true
-  }
+  },
+  "plugins": [
+    "node"
+  ]
 }

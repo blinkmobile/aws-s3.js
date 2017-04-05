@@ -2,6 +2,7 @@
   "name": "@blinkmobile/aws-s3",
   "description": "our simplified wrapper for common AWS S3 operations",
   "version": "2.1.0",
+  "author": "Ron Waldon <jokeyrhyme@gmail.com> (https://github.com/jokeyrhyme)",
   "bugs": {
     "url": "https://github.com/blinkmobile/aws-s3.js/issues"
   },
@@ -18,14 +19,20 @@
   },
   "devDependencies": {
     "ava": "^0.18.0",
-    "eslint": "^3.6.1",
+    "eslint": "^3.19.0",
     "eslint-config-semistandard": "^8.0.0",
-    "eslint-config-standard": "^7.0.0",
-    "eslint-plugin-promise": "^3.0.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint-config-standard": "^10.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.2.0",
     "fixpack": "^2.3.1",
+    "flow-bin": "^0.43.0",
     "npm-run-all": "^4.0.0",
     "nyc": "^10.0.0"
+  },
+  "directories": {
+    "test": "test"
   },
   "engines": {
     "node": ">=4.0.0",
@@ -39,16 +46,21 @@
   "keywords": [],
   "license": "BSD-3-Clause",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blinkmobile/aws-s3.js.git"
   },
   "scripts": {
     "ava": "nyc ava",
-    "eslint": "eslint --fix .",
+    "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
-    "nyc": "nyc check-coverage -s 90 -b 80 -f 90 -l 90",
-    "posttest": "npm-run-all eslint fixpack",
+    "flow_check": "flow check",
+    "nyc": "nyc check-coverage",
+    "posttest": "npm-run-all eslint",
+    "pretest": "npm run fixpack",
     "test": "npm-run-all -s ava nyc"
   }
 }

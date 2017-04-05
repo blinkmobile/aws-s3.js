@@ -38,7 +38,6 @@ test('upload() => EventEmitter', (t) => {
 test('upload().promise: Promise', (t) => {
   const task = upload({ s3: mockS3 });
   t.truthy(task.promise instanceof global.Promise);
-  return task.promise;
 });
 
 test('task = upload({ filePaths: [...] }); task.filePaths as provided', (t) => {
