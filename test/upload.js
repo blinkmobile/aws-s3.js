@@ -11,10 +11,12 @@ const mockS3 = {
   listObjectsV2 (options, callback) { callback(null, { Contents: [] }); },
   upload (options, callback) {
     if (!options.ContentType) {
-      callback(new TypeError('missing ContentType'));
-      return;
+      throw new TypeError('missing ContentType');
     }
-    callback(null);
+    return {
+      on: () => {},
+      send: (fn) => fn()
+    };
   }
 };
 
@@ -99,10 +101,12 @@ test('task uploads and deletes', (t) => {
     },
     upload (options, callback) {
       if (!options.ContentType) {
-        callback(new TypeError('missing ContentType'));
-        return;
+        throw new TypeError('missing ContentType');
       }
-      callback(null);
+      return {
+        on: () => {},
+        send: (fn) => fn()
+      };
     },
     deleteObjects (params, cb) {
       cb(null, {
