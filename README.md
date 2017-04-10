@@ -1,4 +1,4 @@
-# blinkmobile/aws-s3 [![npm module](https://img.shields.io/npm/v/@blinkmobile/aws-s3.svg)](https://www.npmjs.com/package/@blinkmobile/aws-s3) [![Build Status](https://travis-ci.org/blinkmobile/aws-s3.js.svg?branch=master)](https://travis-ci.org/blinkmobile/aws-s3.js) [![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/aws-s3.js.svg)](https://greenkeeper.io/)
+# blinkmobile/aws-s3 [![npm module](https://img.shields.io/npm/v/@blinkmobile/aws-s3.svg)](https://www.npmjs.com/package/@blinkmobile/aws-s3) [![Build Status](https://travis-ci.org/blinkmobile/aws-s3.js.svg?branch=master)](https://travis-ci.org/blinkmobile/aws-s3.js) [![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/aws-s3.js.svg)](https://greenkeeper.io/) [![AppVeyor Status](https://img.shields.io/appveyor/ci/blinkmobile/aws-s3-js/master.svg)](https://ci.appveyor.com/project/blinkmobile/aws-s3-js)
 
 our simplified wrapper for common AWS S3 operations
 
