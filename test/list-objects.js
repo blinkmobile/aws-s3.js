@@ -58,5 +58,5 @@ test('fails if the server returns an error', (t) => {
     }
   };
 
-  t.throws(listObjects(mockS3), 'blah');
+  return t.throws(listObjects(mockS3), 'blah');
 });
