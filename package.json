@@ -28,7 +28,6 @@
     "eslint-plugin-standard": "^3.0.0",
     "fixpack": "^2.3.1",
     "flow-bin": "^0.46.0",
-    "npm-run-all": "^4.0.0",
     "nyc": "^10.0.0"
   },
   "directories": {
@@ -59,8 +58,8 @@
     "fixpack": "fixpack",
     "flow_check": "flow check",
     "nyc": "nyc check-coverage",
-    "posttest": "npm-run-all eslint",
+    "posttest": "npm run eslint && npm run flow_check",
     "pretest": "npm run fixpack",
-    "test": "npm-run-all -s ava nyc"
+    "test": "npm run ava && npm run nyc"
   }
 }
