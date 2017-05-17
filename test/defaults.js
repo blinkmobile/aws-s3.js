@@ -28,3 +28,13 @@ test('mergeDefaults({prune: false}) => prune=false', (t) => {
   const options = mergeDefaults({ prune: false });
   t.is(options.prune, false);
 });
+
+test('mergeDefaults({bucketPathPrefix: ""}) => bucketPathPrefix=""', (t) => {
+  const options = mergeDefaults({ bucketPathPrefix: '' });
+  t.is(options.bucketPathPrefix, '');
+});
+
+test('mergeDefaults({bucketPathPrefix: "dev/"}) => bucketPathPrefix="dev/"', (t) => {
+  const options = mergeDefaults({ bucketPathPrefix: 'dev/' });
+  t.is(options.bucketPathPrefix, 'dev/');
+});

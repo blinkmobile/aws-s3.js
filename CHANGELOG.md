@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+-   CC-32: `bucketPathPrefix` option to allow uploading to a prefixed path in S3 buckets
+
 ### Fixed
 
 -   CC-22: process not finishing without calling process.exit()

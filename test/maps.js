@@ -79,10 +79,10 @@ test('compareMaps skip=true', (t) => {
         Size: 112
       });
 
-      const results = maps.compare(files, objects, { skip: true });
+      const results = maps.compare(files, objects, { skip: true, bucketPathPrefix: '' });
       t.deepEqual(results.deletes, ['sub/extra.txt']);
-      t.deepEqual(results.noops, ['abc.txt']);
       t.deepEqual(results.uploads, ['sub/sub/index.html']);
+      t.deepEqual(results.noops, ['abc.txt']);
     });
 });
 
@@ -105,7 +105,34 @@ test('compareMaps skip=false', (t) => {
         Size: 112
       });
 
-      const results = maps.compare(files, objects, { skip: false });
+      const results = maps.compare(files, objects, { skip: false, bucketPathPrefix: '' });
+      t.deepEqual(results.deletes, ['sub/extra.txt']);
+      t.deepEqual(results.noops, []);
+      results.uploads.sort(); // need to make tests deterministic
+      t.deepEqual(results.uploads, ['abc.txt', 'sub/sub/index.html']);
+    });
+});
+
+test('compareMaps skip=false and bucketPathPrefix="dev/"', (t) => {
+  const cwd = path.join(__dirname, 'fixtures');
+  const filePaths = [
+    'abc.txt',
+    'sub/sub/index.html'
+  ];
+  return maps.fromFiles(null, cwd, filePaths)
+    .then((files) => {
+      let objects = new Map();
+      const abc = files.get('abc.txt');
+      // real ETags from S3 have double-quotes
+      abc.ETag = `"${abc.ETag}"`;
+      objects.set('dev/abc.txt', abc);
+      objects.set('dev/sub/extra.txt', { // new file, should upload
+        Key: 'dev/sub/extra.txt',
+        ETag: '"62f9bca5a72ef519c4877c61ac2c8ac7"',
+        Size: 112
+      });
+
+      const results = maps.compare(files, objects, { skip: false, bucketPathPrefix: 'dev/' });
       t.deepEqual(results.deletes, ['sub/extra.txt']);
       t.deepEqual(results.noops, []);
       results.uploads.sort(); // need to make tests deterministic
