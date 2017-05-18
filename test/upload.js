@@ -59,7 +59,7 @@ test('task = upload({ filePaths: null }); task.filePaths glob\'ed', (t) => {
     'abc.txt',
     'sub/sub/index.html'
   ];
-  const task = upload({ cwd, s3: mockS3 });
+  const task = upload({ cwd, s3: mockS3, bucketPathPrefix: 'dev' });
   return task.promise
     .then(() => {
       t.deepEqual(task.filePaths, filePaths);
@@ -72,7 +72,7 @@ test('task = upload({ filePaths: null }); events', (t) => {
     'abc.txt': { uploading: false, uploaded: false },
     'sub/sub/index.html': { uploading: false, uploaded: false }
   };
-  const task = upload({ cwd, s3: mockS3 });
+  const task = upload({ cwd, s3: mockS3, bucketPathPrefix: 'dev/' });
   task.on('uploading', (fileName) => {
     events[fileName].uploading = true;
   });
@@ -92,9 +92,9 @@ test('task uploads and deletes', (t) => {
   const mockS3 = {
     listObjectsV2 (options, callback) {
       callback(null, { Contents: [
-        {Key: 'abcd.txt'},
-        {Key: 'efgh.txt'},
-        {Key: 'ijkl.txt'}
+        {Key: 'dev/abcd.txt'},
+        {Key: 'dev/efgh.txt'},
+        {Key: 'dev/ijkl.txt'}
       ]});
     },
     upload (options, callback) {
@@ -107,9 +107,9 @@ test('task uploads and deletes', (t) => {
     deleteObjects (params, cb) {
       cb(null, {
         Deleted: [
-          {Key: 'abcd.txt'},
-          {Key: 'efgh.txt'},
-          {Key: 'ijkl.txt'}
+          {Key: 'dev/abcd.txt'},
+          {Key: 'dev/efgh.txt'},
+          {Key: 'dev/ijkl.txt'}
         ],
         Errors: []
       });
@@ -122,7 +122,7 @@ test('task uploads and deletes', (t) => {
     'ijkl.txt': {deleting: false, deleted: false}
   };
   const cwd = path.join(__dirname, 'fixtures');
-  const task = upload({cwd, s3: mockS3, prune: true});
+  const task = upload({cwd, s3: mockS3, prune: true, bucketPathPrefix: '//dev'});
   task.on('deleting', (filename) => {
     events[filename].deleting = true;
   });

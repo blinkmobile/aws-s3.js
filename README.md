@@ -31,7 +31,8 @@ const task = upload({
   // advanced options
   dryRun: false, // true bypasses write calls with simulated success events
   filePaths: [''], // paths relative to rootPath, defaults to glob(['**/*'])
-  fs: null // defaults to `require('fs')`
+  fs: null, // defaults to `require('fs')`
+  bucketPathPrefix: '' // upload objects to base path in S3 bucket
 });
 
 const EventEmitter = require('events');
@@ -85,7 +86,8 @@ interface UploadOptions {
   fs? : Object, // defaults to require('fs')
   prune = false : Boolean,
   s3: AWS.S3,
-  skip = true : Boolean
+  skip = true : Boolean,
+  bucketPathPrefix?: String // defaults to ''
 }
 ```
 
