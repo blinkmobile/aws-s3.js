@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+-   CC-22: process not finishing without calling process.exit()
+
 
 ## 2.2.0 - 2017-05-17
 
