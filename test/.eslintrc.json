@@ -1,11 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "allowSyntheticDefaultImports": true
-  },
-  "exclude": [
-    "node_modules"
-  ],
   "rules": {
     "node/no-unpublished-require": 0
   }
