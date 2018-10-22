@@ -13,7 +13,7 @@
     "ignore-by-default": "^1.0.1",
     "lodash.chunk": "^4.0.6",
     "mime-types": "2.1.15",
-    "pify": "^3.0.0",
+    "pify": "^4.0.1",
     "read-chunk": "^2.0.0",
     "worker-farm": "^1.3.1"
   },
