@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "file-type": "^7.4.0",
+    "file-type": "^10.9.0",
     "glob": "^7.0.3",
     "ignore-by-default": "^1.0.1",
     "lodash.chunk": "^4.0.6",
